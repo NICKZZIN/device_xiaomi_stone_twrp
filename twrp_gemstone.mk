@@ -16,7 +16,7 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 $(call inherit-product, device/xiaomi/gemstone/device.mk)
 
 PRODUCT_DEVICE := gemstone
-PRODUCT_NAME := omni_gemstone
+PRODUCT_NAME := twrp_gemstone
 PRODUCT_BRAND := Redmi
 PRODUCT_MODEL := 22111317G
 PRODUCT_MANUFACTURER := xiaomi
