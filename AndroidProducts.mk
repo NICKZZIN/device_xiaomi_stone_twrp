@@ -6,7 +6,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_gemstone.mk
+    $(LOCAL_DIR)/twrp_gemstone.mk
 
 COMMON_LUNCH_CHOICES := \
     omni_gemstone-user \
