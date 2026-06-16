@@ -9,6 +9,6 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_gemstone.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_gemstone-user \
-    omni_gemstone-userdebug \
-    omni_gemstone-eng
+    twrp_gemstone-user \
+    twrp_gemstone-userdebug \
+    twrp_gemstone-eng
