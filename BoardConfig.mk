@@ -18,7 +18,7 @@ AB_OTA_PARTITIONS += \
     product \
     system_ext \
     vendor
-BOARD_USES_RECOVERY_AS_BOOT := true
+BOARD_USES_RECOVERY_AS_BOOT := false
 
 # Architecture
 TARGET_ARCH := arm64
@@ -82,6 +82,8 @@ BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := xiaomi_dynamic_partitions
 BOARD_XIAOMI_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext product vendor odm
 BOARD_XIAOMI_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
+BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
 
 # Platform
 TARGET_BOARD_PLATFORM := holi
