@@ -40,34 +40,33 @@ TARGET_BOARD_PLATFORM := xiaomi_sm6375
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno619
 QCOM_BOARD_PLATFORMS += xiaomi_sm6375
 
-# Kernel
-VENDOR_CMDLINE := "androidboot.hardware=qcom \
-                   androidboot.memcg=1 \
-                   androidboot.selinux=permissive \
-                   androidboot.usbcontroller=4e00000.dwc3 \
-                   cgroup.memory=nokmem,nosocket \
-                   loop.max_part=7 \
-                   msm_rtb.filter=0x237 \
-                   service_locator.enable=1 \
-                   swiotlb=0 \
-                   pcie_ports=compat \
-                   iptable_raw.raw_before_defrag=1 \
-                   ip6table_raw.raw_before_defrag=1 \
-                   androidboot.init_fatal_reboot_target=recovery"
+# Kernel / Vendor Boot Configuration (Corrigido via AIK)
+BOARD_VENDOR_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0x04C8C000 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=4e00000.dwc3 swiotlb=0 loop.max_part=7 cgroup.memory=nokmem,nosocket iptable_raw.raw_before_defrag=1 ip6table_raw.raw_before_defrag=1 firmware_class.path=/vendor/firmware androidboot.selinux=permissive androidboot.init_fatal_reboot_target=recovery
 
+BOARD_BOOT_HEADER_VERSION := 3
+BOARD_HEADER_SIZE := 2112
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_OFFSET := 0x00008000
+BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_TAGS_OFFSET := 0x00000100
+BOARD_DTB_OFFSET := 0x01f00000
+
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-BOARD_BOOT_HEADER_VERSION := 4
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_RAMDISK_USE_LZ4 := true
 
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-BOARD_MKBOOTIMG_ARGS += --vendor_cmdline $(VENDOR_CMDLINE)
+BOARD_MKBOOTIMG_ARGS += --vendor_cmdline "$(BOARD_VENDOR_CMDLINE)"
 BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE) --board ""
+BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_TAGS_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --header_size $(BOARD_HEADER_SIZE)
 
-# Kernel - prebuilt (Certifique-se de que os arquivos dtb.img, dtbo.img e kernel existam no seu repositório!)
+# Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
@@ -121,7 +120,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
-# Crypto / Decryption (Para o TWRP conseguir ler seus arquivos)
+# Crypto / Decryption
 BOARD_USES_QCOM_FBE_DECRYPTION := true
 BOARD_USES_METADATA_PARTITION := true
 PLATFORM_VERSION := 99.87.36
@@ -152,7 +151,10 @@ TW_EXCLUDE_APEX := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_FRAMERATE := 120
-TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone28/temp" # adicionado o caminho para temp cpu
+
+# Correções Visuais (Bateria e CPU na mesma linha)
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone28/temp"
+TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/battery/capacity"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 5
 
 # Debug
