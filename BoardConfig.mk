@@ -152,6 +152,7 @@ TW_EXCLUDE_APEX := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_FRAMERATE := 120
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone28/temp" # adicionado o caminho para temp cpu
 TW_BATTERY_SYSFS_WAIT_SECONDS := 5
 
 # Debug
